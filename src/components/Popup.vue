@@ -10,9 +10,9 @@
             </v-card-title>
 
             <v-card-text>
-                <v-form class="px-3">
-                    <v-text-field v-model="title" label="Title" prepend-icon="folder"></v-text-field>
-                    <v-textarea v-model="content" label="Information" prepend-icon="edit"></v-textarea>
+                <v-form ref="form" class="px-3">
+                    <v-text-field v-model="title" label="Title" prepend-icon="folder" :rules="inputRules"></v-text-field>
+                    <v-textarea v-model="content" label="Information" prepend-icon="edit" :rules="inputRules"></v-textarea>
 
                         <v-menu
                                 ref="menu1"
@@ -32,6 +32,7 @@
                                         prepend-icon="event"
                                         @blur="date = parseDate(dateFormatted)"
                                         v-on="on"
+                                        :rules="inputRules"
                                 ></v-text-field>
                             </template>
                             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
@@ -48,6 +49,7 @@
 </template>
 
 <script>
+    import db from '../fb'
     export default {
         data: vm => {
             return {
@@ -57,6 +59,10 @@
                 date: new Date().toISOString().substr(0, 10),
                 dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
                 menu1: false,
+                inputRules: [
+                    v => !!v || 'This field is required',
+                    v => v.length >= 3 || 'Minimum length is 3 characters'
+                ]
             }
         },
         computed: {
@@ -72,10 +78,21 @@
         },
 
         methods: {
-
             submit() {
-                console.log(this.title, this.content, this.date)
-            },
+                if(this.$refs.form.validate()) {
+                    const project = {
+                        title: this.title,
+                        content: this.content,
+                        due: this.date,
+                        person: 'The Net Ninja',
+                        status: 'ongoing'
+                    };
+                    db.collection('projects').add(project).then(() => {
+                        console.log('added to db')
+                    })
+                }
+            }
+        },
 
             formatDate (date) {
                 if (!date) return null;
@@ -89,7 +106,7 @@
                 const [month, day, year] = date.split('/');
                 return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
             },
-        },
+
 
     }
 </script>
