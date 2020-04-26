@@ -7,8 +7,33 @@
                 <span>Ninja</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
+
+            <!-- dropdown menu -->
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                            color="grey"
+                            text
+                            v-on="on"
+                    >
+                        <v-icon left>expand_more</v-icon>
+                        MENU
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item
+                            v-for="link in links"
+                            :key="link.text"
+                            @click=""
+                            router :to="link.route"
+                    >
+                        <v-list-item-title>{{ link.text }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
             <v-btn text color="grey">
-               <span>Sign Out</span>
+                <span>Sign Out</span>
                 <v-icon right>exit_to_app</v-icon>
             </v-btn>
 
@@ -18,13 +43,18 @@
             <v-layout column align-center>
                 <v-flex class="mt-5">
                     <v-avatar size="100">
-                        <img  class="text-lg-center" src='/avatar-1.png'>
+                        <img class="text-lg-center" src='/avatar-1.png'>
                     </v-avatar>
                     <p class="white--text subheading mt-1">The Net Ninja</p>
                 </v-flex>
+
+                <v-flex class="mt-4 mb-3">
+                    <Popup/>
+                </v-flex>
+
             </v-layout>
             <v-list>
-                <v-list-item-group v-for="link in links" :key="link.text" >
+                <v-list-item-group v-for="link in links" :key="link.text">
                     <v-list-item router :to="link.route">
                         <v-list-item-icon>
                             <v-icon class="white--text">{{ link.icon }}</v-icon>
@@ -41,14 +71,17 @@
 
 
 <script>
-    export default {
-        data: () => ({
-            drawer: false,
-            links: [
-                { icon: 'dashboard', text: 'Dashboard', route: '/' },
-                { icon: 'folder', text: 'My Projects', route: '/projects' },
-                { icon: 'person', text: 'Team', route: '/team' },
-            ]
-            })
-        }
+import Popup from './Popup'
+
+export default {
+    components: { Popup },
+    data: () => ({
+        drawer: false,
+        links: [
+            {icon: 'dashboard', text: 'Dashboard', route: '/'},
+            {icon: 'folder', text: 'My Projects', route: '/projects'},
+            {icon: 'person', text: 'Team', route: '/team'},
+        ]
+    })
+}
 </script>

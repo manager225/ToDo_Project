@@ -6,7 +6,7 @@
             <v-expansion-panels>
                 <v-expansion-panel v-for="project in myProjects" :key="project.title">
                     <v-expansion-panel-header>
-                        <div slot="header" class="py-1">{{ project.title }}</div>
+                        <div class="py-1">{{ project.title }}</div>
                     </v-expansion-panel-header>
                     <v-card>
                         <v-expansion-panel-content>
