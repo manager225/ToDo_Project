@@ -1,6 +1,6 @@
 
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog max-width="600px" v-model="dialog">
         <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="success">Add New Project</v-btn>
         </template>
@@ -39,7 +39,7 @@
                         </v-menu>
 
                     <v-spacer></v-spacer>
-                    <v-btn text @click="submit" class="success mx-0 mt-3">Add Project</v-btn>
+                    <v-btn text @click="submit" class="success mx-0 mt-3" :loading="loading">Add Project</v-btn>
                 </v-form>
             </v-card-text>
 
@@ -62,7 +62,9 @@
                 inputRules: [
                     v => !!v || 'This field is required',
                     v => v.length >= 3 || 'Minimum length is 3 characters'
-                ]
+                ],
+                loading: false,
+                dialog: false
             }
         },
         computed: {
@@ -80,6 +82,7 @@
         methods: {
             submit() {
                 if(this.$refs.form.validate()) {
+                    this.loading = true;
                     const project = {
                         title: this.title,
                         content: this.content,
@@ -88,11 +91,12 @@
                         status: 'ongoing'
                     };
                     db.collection('projects').add(project).then(() => {
-                        console.log('added to db')
+                        this.loading = false;
+                        this.dialog = false;
+                        this.$emit('projectAdded')
                     })
                 }
-            }
-        },
+            },
 
             formatDate (date) {
                 if (!date) return null;
@@ -106,6 +110,10 @@
                 const [month, day, year] = date.split('/');
                 return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
             },
+
+        },
+
+
 
 
     }
