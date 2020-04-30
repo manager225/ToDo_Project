@@ -10,7 +10,7 @@
             <v-app-bar-nav-icon @click="drawer = !drawer" class="grey--text"></v-app-bar-nav-icon>
             <v-toolbar-title class="text-uppercase grey--text">
                 <span class="font-weight-light">Todo</span>
-                <span>Ninja</span>
+                <span>marvel</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -51,7 +51,7 @@
                     <v-avatar size="100">
                         <img class="text-lg-center" src='/avatar-1.png'>
                     </v-avatar>
-                    <p class="white--text subheading mt-1">The Net Ninja</p>
+                    <p class="white--text subheading mt-1">X‑Men</p>
                 </v-flex>
 
                 <v-flex class="mt-4 mb-3">

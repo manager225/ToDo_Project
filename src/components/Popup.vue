@@ -87,7 +87,7 @@
                         title: this.title,
                         content: this.content,
                         due: this.date,
-                        person: 'The Net Ninja',
+                        person: 'X‑Men',
                         status: 'ongoing'
                     };
                     db.collection('projects').add(project).then(() => {

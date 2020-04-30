@@ -1,6 +1,6 @@
 <template>
     <div class="projects">
-        <h1 class="subheading grey--text">Projects</h1>
+        <h1 class="subheading grey--text text-center">Projects</h1>
 
         <v-container class="my-5">
             <v-expansion-panels>
@@ -35,7 +35,7 @@
         computed: {
             myProjects() {
                 return this.projects.filter(project => {
-                    return project.person === 'The Net Ninja' && project.status !== 'complete'
+                    return project.person === 'X‑Men'
                 })
             }
         },
