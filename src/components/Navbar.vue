@@ -12,6 +12,7 @@
                 <span class="font-weight-light">Todo</span>
                 <span>marvel</span>
             </v-toolbar-title>
+            <span class="grey--text px-5">{{date | date('datetime')}}</span>
             <v-spacer></v-spacer>
 
             <!-- dropdown menu -->
@@ -82,6 +83,8 @@ import Popup from './Popup'
 export default {
     components: { Popup },
     data: () => ({
+        date: new Date (),
+        interval: null,
         drawer: false,
         links: [
             {icon: 'dashboard', text: 'Dashboard', route: '/'},
@@ -89,6 +92,14 @@ export default {
             {icon: 'person', text: 'Team', route: '/team'},
         ],
         snackbar: false
-    })
+    }),
+    mounted() {
+        this.interval = setInterval(() => {
+            this.date = new Date()
+        } , 1000)
+    },
+    beforeDestroy() {
+        clearInterval(this.interval)
+    }
 }
 </script>
