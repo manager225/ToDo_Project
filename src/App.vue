@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import EmptyLayout from '/layouts/EmptyLayout.vue'
-import MainLayout from '/layouts/MainLayout.vue'
+import EmptyLayout from './layouts/EmptyLayout.vue'
+import MainLayout from './layouts/MainLayout.vue'
 export default {
   computed: {
     layout () {
-      return (this.$route.meta.layout || 'empty') + '-layouts'
+      return (this.$route.meta.layout || 'empty') + '-layout'
     }
   },
   components: {
@@ -24,12 +24,29 @@ export default {
 
 <style lang="sass">
     $color-pack: true
-
-    @import 'assets/index.css'
     @import '~vuetify/src/styles/main.sass'
- @import '~materialize-css/dist/css/materialize.min.css'
+    /*@import '~materialize-css/dist/css/materialize.min.css'*/
+    /*@import './assets/index.css'*/
 
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--<template>-->
 <!--    <v-app>-->

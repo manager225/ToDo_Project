@@ -21,19 +21,19 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'home',
+      name: 'dashboard',
       meta: { layout: 'main' },
       component: () => import('../views/Dashboard.vue')
     },
     {
-      path: '/categories',
-      name: 'categories',
+      path: '/projects',
+      name: 'projects',
       meta: { layout: 'main' },
       component: () => import('../views/Projects.vue')
     },
     {
-      path: '/detail/:id',
-      name: 'detail',
+      path: '/team',
+      name: 'team',
       meta: { layout: 'main' },
       component: () => import('../views/Team.vue')
     },

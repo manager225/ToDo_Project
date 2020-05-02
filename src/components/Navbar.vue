@@ -39,9 +39,11 @@
                 </v-list>
             </v-menu>
 
-            <v-btn text color="grey">
+            <v-btn text>
+                <a href="#" class="grey--text" @click.prevent="logout">
                 <span>Sign Out</span>
                 <v-icon right>exit_to_app</v-icon>
+                </a>
             </v-btn>
 
         </v-app-bar>
@@ -93,6 +95,12 @@ export default {
         ],
         snackbar: false
     }),
+    methods: {
+    logout () {
+      console.log('Logout');
+      this.$router.push('/login?message=logout')
+    }
+  },
     mounted() {
         this.interval = setInterval(() => {
             this.date = new Date()

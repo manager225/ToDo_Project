@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Navbar from '/components/app/Navbar'
-import Popup from '/components/app/Popup'
+import Navbar from '../components/Navbar'
+import Popup from '../components/Popup'
 
 export default {
   name: 'main-layout',
