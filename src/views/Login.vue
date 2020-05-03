@@ -31,12 +31,23 @@
               <v-card-text>
                 <v-form  >
                   <v-text-field
+                    id="email"
                     label="Email"
                     name="login"
-                    prepend-icon="person"
+                    prepend-icon="email"
                     type="email"
                     required
+                    v-model.trim="email"
+                    :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
                   />
+                  <small
+                    class="helper-text invalid red--text"
+                    v-if="$v.email.$dirty && !$v.email.required">
+                    Email field must not be empty</small>
+                  <small
+                    class="helper-text invalid red--text"
+                    v-else-if="$v.email.$dirty && !$v.email.email">
+                    Enter a valid Email</small>
 
                   <v-text-field
                     id="password"
@@ -45,7 +56,18 @@
                     prepend-icon="lock"
                     type="password"
                     required
+                    v-model.trim="password"
+                    :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
                   />
+                  <small
+                    class="helper-text invalid red--text"
+                    v-if="$v.password.$dirty && !$v.password.required">
+                    Enter password</small>
+                  <small
+                    class="helper-text invalid red--text"
+                    v-else-if="$v.password.$dirty && !$v.password.minLength">
+                    Password must contain at least {{$v.password.$params.minLength.min}} characters. Now it is {{password.length}}</small>
+
                 </v-form>
               </v-card-text>
               <v-card-actions >
@@ -67,16 +89,38 @@
   </template>
 
 <script>
+  import {email, required, minLength} from 'vuelidate/lib/validators'
+  import messages from "../utils/messages";
+
   export default {
     name: 'login',
     data: () => ({
-    email: '',
-    password: ''
-  }),
-    methods: {
-      submitHandler() {
-        this.$router.push('/')
-      }
+      email: '',
+      password: ''
+    }),
+    validations: {
+      email: {email, required},
+      password: {required, minLength: minLength(6)}
+    },
+    mounted() {
+    if (messages[this.$route.query.message]) {
+      this.$message(messages[this.$route.query.message])
     }
+  },
+     methods: {
+    submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return
+      }
+      const formData = {
+        email: this.email,
+        password: this.password
+      };
+
+      console.log(formData);
+      this.$router.push('/')
+    }
+  }
   }
 </script>
