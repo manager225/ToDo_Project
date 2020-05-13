@@ -1,114 +1,137 @@
 <template>
-<div id="app">
-  <v-app id="inspire"
-  style="background-color: grey"  >
-    <v-content >
+  <div id="app">
+    <v-app id="inspire"
+           style="background-color: grey">
+      <v-content>
 
-      <v-container
-        class="fill-height"
-        fluid
-        style="height: 100vh; width: 100%"
+        <v-container
+          class="fill-height"
+          fluid
+          style="height: 100vh; width: 100%"
 
-      >
-        <v-row
-          align="center"
-          justify="center"
         >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
+
+<!--           <v-alert-->
+<!--            dense-->
+<!--            type="info"-->
+<!--            :value="messages"-->
+<!--            >-->
+<!--             {{ 'logout' }}-->
+<!--           </v-alert>-->
+
+          <v-row
+            align="center"
+            justify="center"
           >
-            <form @submit.prevent="submitHandler">
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="indigo"
-                dark
-                flat
-              >
-                <v-toolbar-title>Log in to TODOMarvel</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form  >
-                  <v-text-field
-                    id="email"
-                    label="Email"
-                    name="login"
-                    prepend-icon="email"
-                    type="email"
-                    required
-                    v-model.trim="email"
-                    :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
-                  />
-                  <small
-                    class="helper-text invalid red--text"
-                    v-if="$v.email.$dirty && !$v.email.required">
-                    Email field must not be empty</small>
-                  <small
-                    class="helper-text invalid red--text"
-                    v-else-if="$v.email.$dirty && !$v.email.email">
-                    Enter a valid Email</small>
+            <v-col
+              cols="12"
+              sm="8"
+              md="4"
+            >
+              <form @submit.prevent="submitHandler">
+                <v-card class="elevation-12">
+                  <v-toolbar
+                    color="indigo"
+                    dark
+                    flat
+                  >
+                    <v-toolbar-title>Log in to TODOMarvel</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+<!--                  <v-alert-->
+<!--                    :value="error"-->
+<!--                    type="warning">-->
+<!--                    {{ error }}-->
+<!--                  </v-alert>-->
 
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="lock"
-                    type="password"
-                    required
-                    v-model.trim="password"
-                    :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
-                  />
-                  <small
-                    class="helper-text invalid red--text"
-                    v-if="$v.password.$dirty && !$v.password.required">
-                    Enter password</small>
-                  <small
-                    class="helper-text invalid red--text"
-                    v-else-if="$v.password.$dirty && !$v.password.minLength">
-                    Password must contain at least {{$v.password.$params.minLength.min}} characters. Now it is {{password.length}}</small>
+                    <v-form>
+                      <v-text-field
+                        id="email"
+                        label="Email"
+                        name="login"
+                        prepend-icon="email"
+                        type="email"
+                        required
+                        v-model.trim="email"
+                        :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
+                      />
+                      <small
+                        class="helper-text invalid red--text"
+                        v-if="$v.email.$dirty && !$v.email.required">
+                        Email field must not be empty</small>
+                      <small
+                        class="helper-text invalid red--text"
+                        v-else-if="$v.email.$dirty && !$v.email.email">
+                        Enter a valid Email</small>
 
-                </v-form>
-              </v-card-text>
-              <v-card-actions >
-                <v-spacer />
-                <v-btn color="indigo" class="btn white--text auth-submit" style="width: 100%" type="submit" v-on:submit.prevent>Log in</v-btn>
-              </v-card-actions>
-              <v-card-text style="justify-content: center; display: flex">
-                <p class="indigo--text" >No account? <router-link to="/register" class="indigo--text">register</router-link></p>
-              </v-card-text>
-            </v-card>
-            </form>
-          </v-col>
-        </v-row>
-      </v-container>
+                      <v-text-field
+                        id="password"
+                        label="Password"
+                        name="password"
+                        prepend-icon="lock"
+                        type="password"
+                        required
+                        v-model.trim="password"
+                        :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
+                      />
+                      <small
+                        class="helper-text invalid red--text"
+                        v-if="$v.password.$dirty && !$v.password.required">
+                        Enter password</small>
+                      <small
+                        class="helper-text invalid red--text"
+                        v-else-if="$v.password.$dirty && !$v.password.minLength">
+                        Password must contain at least {{$v.password.$params.minLength.min}} characters. Now it is
+                        {{password.length}}</small>
 
-    </v-content>
-  </v-app>
-</div>
-  </template>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer/>
+                    <v-btn color="indigo" class="btn white--text auth-submit" style="width: 100%" type="submit"
+                           v-on:submit.prevent>Log in
+                    </v-btn>
+<!--                    <v-btn color="indigo" class="btn white&#45;&#45;text auth-submit" style="width: 100%" type="submit"-->
+<!--                           @click.prevent="submit">Log in-->
+<!--                    </v-btn>-->
+                  </v-card-actions>
+                  <v-card-text style="justify-content: center; display: flex">
+                    <p class="indigo--text">No account?
+                      <router-link to="/register" class="indigo--text">register</router-link>
+                    </p>
+                  </v-card-text>
+                </v-card>
+              </form>
+            </v-col>
+          </v-row>
+        </v-container>
+
+      </v-content>
+    </v-app>
+  </div>
+</template>
 
 <script>
-  import {email, required, minLength} from 'vuelidate/lib/validators'
-  import messages from "../utils/messages";
+import {email, required, minLength} from 'vuelidate/lib/validators'
+import messages from '../utils/messages'
 
-  export default {
-    name: 'login',
-    data: () => ({
-      email: '',
-      password: ''
-    }),
-    validations: {
-      email: {email, required},
-      password: {required, minLength: minLength(6)}
-    },
-    mounted() {
+export default {
+  name: 'login',
+  data: () => ({
+    email: '',
+    password: ''
+  }),
+  validations: {
+    email: {email, required},
+    password: {required, minLength: minLength(6)}
+  },
+  mounted() {
     if (messages[this.$route.query.message]) {
       this.$message(messages[this.$route.query.message])
     }
   },
-     methods: {
-    submitHandler() {
+  methods: {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return
@@ -118,9 +141,11 @@
         password: this.password
       };
 
-      console.log(formData);
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('login', formData);
+        this.$router.push('/')
+      } catch (e) {}
     }
   }
-  }
+}
 </script>

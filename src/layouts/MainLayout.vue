@@ -16,8 +16,16 @@ import Popup from '../components/Popup'
 export default {
   name: 'main-layout',
   data: () => ({
-    isOpen: true
+    isOpen: true,
+    loading: true
   }),
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchInfo')
+    }
+
+    this.loading = false
+  },
   components: {
     Navbar, Popup
   }

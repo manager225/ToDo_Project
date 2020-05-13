@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import auth from "../store/auth";
+import Store from "../store";
 
 Vue.use(Router);
+Vue.use(Store);
+// Vue.use(auth);
 
 export default new Router({
   mode: 'history',
@@ -23,70 +27,29 @@ export default new Router({
       path: '/',
       name: 'dashboard',
       meta: { layout: 'main' },
-      component: () => import('../views/Dashboard.vue')
+      component: () => import('../views/Dashboard.vue'),
+      beforeEnter: AuthGuard
     },
     {
       path: '/projects',
       name: 'projects',
       meta: { layout: 'main' },
-      component: () => import('../views/Projects.vue')
+      component: () => import('../views/Projects.vue'),
+      beforeEnter: AuthGuard
     },
     {
       path: '/team',
       name: 'team',
       meta: { layout: 'main' },
-      component: () => import('../views/Team.vue')
+      component: () => import('../views/Team.vue'),
+      beforeEnter: AuthGuard
     },
 
   ]
 })
 
-// import Vue from 'vue'
-// import VueRouter from 'vue-router'
-// import Dashboard from '../views/Dashboard.vue'
-// import Projects from '../views/Projects.vue'
-// import Team from '../views/Team.vue'
-// import Login from '../views/Login'
-// import Register from '../views/Register'
-//
-// Vue.use(VueRouter);
-//
-// const routes = [
-// {
-//   path: '/',
-//   name: 'dashboard',
-//   component: Dashboard
-// },
-//
-// {
-//   path: '/projects',
-//   name: 'projects',
-//   component: Projects
-// },
-//
-// {
-//   path: '/team',
-//   name: 'team',
-//   component: Team
-// },
-//   {
-//   path: '/login',
-//   name: 'login',
-//   component: Login
-// },
-// {
-//   path: '/register',
-//   name: 'register',
-//   component: Register
-// },
-//
-// ];
-//
-// const router = new VueRouter({
-//   mode: 'history',
-//   base: process.env.BASE_URL,
-//   routes
-// });
-//
-// export default router
-
+function AuthGuard(from, to, next) {
+  if(Store.getters.isUserAuthenticated)
+    next();
+  else next ('/login')
+}
